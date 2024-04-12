@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Store Management</title>
+    <link href="{{ url_for('static', filename='index.css') }}" rel="stylesheet" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container-fluid">
+            <button class="navbar-toggler mx-auto" type="button" data-bs-toggle="collapse" data-bs-target="#mainnav"
+            aria-controls="mainnav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="mainnav">
+                <ul class="navbar-nav mx-auto">
+                    {% if isAuth %}
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{url_for('manager_login' if isManager else 'user_login')}}">Log in</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" aria-current="page" href="{{url_for('manager_register' if isManager else 'user_register')}}">Sign up</a>
+                        </li>
+                    {% else %}
+                        <div class="d-flex justify-content-between align-items-center w-100">
+                            <div>
+                                {% if isManager %}
+                                    {% if manager.name %}
+                                        <p>{{ manager.name }}'s Dashboard</p>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if isUser %}
+                                    {% if user.name %}
+                                        <p>{{ user.name }}'s Dashboard</p>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                            <div>
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <a class="nav-link" aria-current="page" href="{{url_for('manager_home' if isManager else 'user_home')}}">Home</a>
+                                    </li>
+
+                                    {% if isManager %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('logout')}}">Log out</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('manager_summary')}}">Summary</a>
+                                        </li>
+                                    {% elif isUser %}
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('user_profile',user_id=user.user_id)}}">Profile</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('user_search',user_id=user.user_id)}}">Search</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('user_cart',user_id=user.user_id)}}">Cart</a>
+                                        </li>
+
+                                        <li class="nav-item">
+                                            <a class="nav-link" aria-current="page" href="{{url_for('user_logout')}}">Log out</a>
+                                        </li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <main>
+        {% if error %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert" style="position: fixed; z-index: 999; bottom: 0; margin: auto; left: 0; right: 0;">
+                {{ error }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        {% if success_message %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; z-index: 999; bottom: 0; margin: auto; left: 0; right: 0;">
+                {{ success_message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endif %}
+        {% block body %}
+        {% endblock %}
+    </main>
+    <footer>
+        <small>
+            Modern Application Development - 1 Project, made by Rakshith Subramanian (22f2001190)
+        </small>
+    </footer>
+    <script src="{{ url_for('static', filename='bootstrap/bootstrap.bundle.min.js') }}"></script>
+</body>
+</html>

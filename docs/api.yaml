@@ -1,0 +1,323 @@
+openapi: 3.0.0
+info:
+  version: 1.0.0
+  title: Grocery Store Management
+  description: >-
+    This API allows users to perform CRUD operations on Categories and Items.
+    It also includes Additional APIs for getting the Categories/Items to display
+paths:
+  /category:
+    get:
+      summary: Get all Category
+      responses:
+        '200':
+          description: Fetched all Categories
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Categories
+    post:
+      summary: Create a new Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategory'
+      responses:
+        '200':
+          description: Created the Category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Categories
+  /category/{cid}:
+    get:
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Category ID
+      summary: Get one Category
+      responses:
+        '200':
+          description: Fetched one particular Category
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Category'
+        '400':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Categories
+    put:
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Category ID
+      summary: Edit an existing Category
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCategory'
+      responses:
+        '200':
+          description: Edited the Category
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Categories
+    delete:
+      parameters:
+        - in: path
+          name: cid
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Category ID
+      summary: Delete an existing Category
+      responses:
+        '200':
+          description: Deleted the Category
+        '400':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Categories
+  /item:
+    get:
+      summary: Get all items
+      responses:
+        '200':
+          description: Fetched all items
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Items
+    post:
+      summary: Create a new item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItem'
+      responses:
+        '200':
+          description: Created the Item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Items
+  /item/{item_id}:
+    get:
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Item ID
+      summary: Get one Item
+      responses:
+        '200':
+          description: Fetched one particular Item
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Item'
+        '400':
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Items
+    put:
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Item ID
+      summary: Edit an existing Item
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateItem'
+      responses:
+        '200':
+          description: Edited the Item
+        '400':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Items
+    delete:
+      parameters:
+        - in: path
+          name: item_id
+          required: true
+          schema:
+            $ref: '#/components/schemas/Id'
+          description: The Item ID
+      summary: Delete an existing item
+      responses:
+        '200':
+          description: Deleted the item
+        '400':
+          description: Unknown error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      tags:
+        - Items
+  
+components:
+  schemas:
+    Id:
+      description: The unique identifier of any element in the database
+      type: integer
+      minimum: 1
+    Item:
+      type: object
+      properties:
+        item_id:
+          $ref: '#/components/schemas/Id'
+        category_id:
+          type: integer
+        name:
+          type: string
+        unit:
+          type: string
+        unit_price:
+          type: integer
+        qty:
+          type: integer
+        qty_left:
+          type: integer
+        mdate:
+          type: string
+          format: date
+        
+    CreateItem:
+      type: object
+      required:
+        - category_id
+        - name
+        - unit
+        - unit_price
+        - qty
+        - qty_left
+        - mdate
+      properties:
+        category_id:
+          type: integer
+        name:
+          type: string
+        unit:
+          type: string
+        unit_price:
+          type: integer
+        qty:
+          type: integer
+        qty_left:
+          type: integer
+        mdate:
+          type: string
+          format: date
+          
+    Category:
+      type: object
+      properties:
+        cid:
+          $ref: '#/components/schemas/Id'
+        cname:
+          type: string
+        
+    CreateCategory:
+      type: object
+      required:
+        - cname
+      properties:
+        cname:
+          type: string
+        
+    Error:
+      type: object
+      properties:
+        code:
+          description: The error status code
+          type: integer
+        message:
+          description: A human readable error message
+          type: string
+servers:
+  - url: http://127.0.0.1:5000/api/v1
+    variables: {}
+  - url: http://localhost:5000/api/v1
+    variables: {}
+  
+tags:
+  - name: Categories
+    description: 'CRUD operations for Categories '
+  - name: Items
+    description: 'CRUD operations for Items '

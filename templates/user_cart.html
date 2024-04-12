@@ -1,0 +1,37 @@
+{% extends '_base.html' %}
+
+{% block body %}
+<h1>{{ user.name }}'s Cart</h1>
+<div class="container my-4">
+    {% if cart.cart_id %}
+        {% if leng>0 %}
+            <div class="row">
+                {% for item in itemsCart %}
+                    <div class="col-md-12 mb-4">
+                        <div class="card">
+                            <div class="card-body d-flex justify-content-between align-items-center">
+                                <div>
+                                    <p>{{ categories[item.category_id] }} &nbsp;&nbsp; - &nbsp;&nbsp;&nbsp; {{ items[item.item_id]['name'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ item.qty_bought }}{{ items[item.item_id]['unit'][3:] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ items[item.item_id]['unit_price'] }} {{ items[item.item_id]['unit'] }} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {{ item.total_price }}Rs</p>
+                                </div>
+                                <div>
+                                    <a href="{{ url_for('user_editcartitem', user_id=user.user_id, item_id=item.item_id,cart_id=cart.cart_id,cart_item_no=item.cart_item_no) }}" class="btn btn-primary">Edit</a>
+                                    <a href="{{ url_for('user_deletecartitem', user_id=user.user_id, item_id=item.item_id,cart_id=cart.cart_id,cart_item_no=item.cart_item_no) }}" class="btn btn-primary">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="text-end">
+                <h5>Total: {{ tot }}</h5> 
+                <a href="{{ url_for('user_buyall',user_id=user.user_id)}}" class="btn btn-primary">Buy All</a>
+            </div>
+        {% elif leng==0 %}
+            <h4>No Items added to the cart so far</h4>
+        {% endif %}
+    {% else %}
+        <h4>Cart is not created.</h4>
+    {% endif %}
+    </div>
+</div>
+{% endblock %}

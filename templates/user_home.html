@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+
+{% block body %}
+<div class="gutter-banner"></div>
+<div class="container-fluid">
+    <h1 class="my-4 text-center">Welcome, {{ user.name }}</h1>
+    {% if d %}
+        {% for category in categories %}
+            <div class="row mb-4">
+                <div class="col-md-12">
+                    <div class="card rounded">
+                        <div class="card-body text-center">
+                            <h3 class="card-title">{{ category.cname }}</h3>
+                            {% if d[category.cid] %}
+                                <div class="row">
+                                    {% for item in d[category.cid] %}
+                                        <div class="col-md-4 mb-3">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <div class="card-body">
+                                                            <h5 class="card-title">{{ item.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.unit_price }}{{ item.unit }}</h5>
+                                                        </div>
+                                                        <div>
+                                                            {% if item.qty_left > 0 %}
+                                                                <a href="{{ url_for('user_buyitem', user_id=user.user_id, item_id=item.item_id) }}" class="btn btn-primary">Buy</a>
+                                                            {% else %}
+                                                                <a href="#" class="btn btn-primary btn-out-of-stock" disabled>Out of Stock</a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <h4 class="my-4">No Items available in this Category</h4>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <h1 class="my-4">No Items available on this shop</h1>
+    {% endif %}
+</div>
+{% endblock %}

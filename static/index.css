@@ -1,0 +1,52 @@
+@import url('./bootstrap/bootstrap.min.css');
+* {
+    border-radius: 0px !important;
+}
+
+.btn-rounded {
+    border-radius: 20px;
+}
+  
+.btn-primary {
+    background-color: #185bc0;
+    margin-top: 10px; 
+}
+
+.card {
+    box-shadow: 0px 0px 30px 5px rgba(0, 0, 0, 0.05);
+}
+
+.gutter-banner {
+    height: 56px;
+    width: 100%;
+}
+
+.form-floating.input-group .form-label {
+    z-index: 5 !important;
+}
+
+.form-control {
+    background-color: #f9f9f9;
+    height: 40px;
+}
+
+main {
+    min-height: 100vh;
+    background-color: #eee;
+}
+
+footer {
+    text-align: center;
+    padding: 3rem;
+    background-color: #222;
+    color: #fff;
+    width: 100%;
+}
+
+
+.btn-out-of-stock {
+    color:gray;
+    opacity: 0.6; 
+    pointer-events: none; 
+}
+

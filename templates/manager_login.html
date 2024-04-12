@@ -1,0 +1,29 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="container">
+    <div class="d-flex justify-content-center align-items-center vh-100">
+        <div>
+            <h1 class="text-center my-3">Manager Login</h1>
+            <div class="card text-center">
+                <div class="card-body">
+                    <form method="POST" action="{{ url_for('manager_login') }}">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control clear-placeholder" id="username" name="username" placeholder="Username">
+                            <label for="username">Enter Username</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="email" class="form-control clear-placeholder" id="email" name="email" placeholder="Email">
+                            <label for="email">Enter Email-Id</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control clear-placeholder" id="password" name="password" placeholder="password">
+                            <label for="password">Enter your Password</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-rounded">Login</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

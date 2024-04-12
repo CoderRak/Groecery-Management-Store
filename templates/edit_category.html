@@ -1,0 +1,19 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <h1>Editing a Category</h1>
+        <div class="card text-center">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('edit_category',cid=cid) }}">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control clear-placeholder" id="name" name="name" placeholder="Name">
+                        <label for="name">Category Name</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-rounded">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

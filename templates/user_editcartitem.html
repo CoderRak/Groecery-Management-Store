@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+
+{% block body %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <h3 class="text-center">{{ item.name }} - {{ category.cname }}</h3>
+        <div class="card text-center">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('user_editcartitem', user_id=user.user_id, item_id=item.item_id,cart_id=cart_id,cart_item_no=cart_item_no) }}" id="buy-form">
+                    <div class="form-inline mb-3">
+                        <label for="availability" class="mr-2">Availability:</label>
+                        <input type="text" class="form-control" id="availability" name="availability" value="In Stock" disabled>
+                    </div>
+                    <div class="form-inline mb-3">
+                        <label for="price" class="mr-2">Price:{{ item.unit }}</label>
+                        <input type="text" class="form-control" id="price" name="price" value="{{ item.unit_price }}" readonly>
+                    </div>
+                    <div class="form-inline mb-3">
+                        {% if quan %}
+                            <label for="quantity" class="mr-2">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" value="{{ quan }}"  step="any" required placeholder="Enter quantity in same units as that of price" style="width: 400px;" disabled>    
+                        {% else %}
+                            <label for="quantity" class="mr-2">Quantity:</label>
+                            <input type="number" class="form-control" id="quantity" name="quantity" step="any" required placeholder="Enter quantity in same units as that of price" style="width: 400px;">
+                        {% endif %}
+                    </div>
+                    <div class="form-inline mb-3">
+                        {% if flag %}
+                            <div class="form-inline mb-3">
+                                <label for="total" class="mr-2">Total:</label>
+                                <input type="text" class="form-control" id="total" name="total" value="{{ tot }}" readonly>
+                            </div>
+                            <a href="{{ url_for('user_editcartitem', user_id=user.user_id, item_id=item.item_id,cart_id=cart_id,cart_item_no=cart_item_no) }}" class="btn btn-primary">Edit Quantity</a>
+                            
+                            <button type="submit" class="btn btn-primary">Save</button>
+                        {% else %}
+                            <button type="submit" class="btn btn-primary mr-2">Calculate Price</button>
+                        {% endif %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

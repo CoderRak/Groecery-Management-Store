@@ -1,0 +1,31 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <h1 class="text-center my-3">User Edit Profile</h1>
+        <div class="card text-center">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('user_editprofile', user_id=user.user_id) }}">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control clear-placeholder" id="name" name="name" placeholder="Name">
+                        <label for="name">Enter your Name</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="email" class="form-control clear-placeholder" id="email" name="email" placeholder="Email" readonly value="{{ user.email }}">
+                        <label for="email">Enter your Email id</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="form-control clear-placeholder" id="phoneno" name="phoneno" placeholder="Phone number" maxlength="10" minlength="10">
+                        <label for="phoneno">Phone number</label>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="form-control clear-placeholder" id="password" name="password" placeholder="Password">
+                        <label for="password">Enter your Password</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

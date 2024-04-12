@@ -1,0 +1,49 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <h1>Creating a new Item</h1>
+        <div class="card text-center">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('create_item',cid=cid) }}">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control clear-placeholder" id="name" name="name" placeholder="Name">
+                        <label for="name">Item Name</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="unit" name="unit">
+                            <option value="Rs/kg">Rs/kg</option>
+                            <option value="Rs/L">Rs/L</option>
+                            <option value="Rs/Dozen">Rs/Dozen</option>
+                            <option value="Rs/gram">Rs/gram</option>
+                            <option value="Rs/Packet">Rs/Packet</option>
+                            <option value="Rs/Piece">Rs/Piece</option>
+                        </select>
+                        <label for="unit">Unit</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control clear-placeholder" id="unit_price" name="unit_price" placeholder="Unit Price">
+                        <label for="unit_price">Unit Price</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control clear-placeholder" id="qty" name="qty" placeholder="Quantity">
+                        <label for="qty">Quantity</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="mdate" name="mdate">
+                        <label for="mdate">Manufacturing Date</label>
+                    </div>
+                
+                    
+                
+                    <button type="submit" class="btn btn-primary btn-rounded">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

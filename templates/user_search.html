@@ -1,0 +1,95 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="gutter-banner"></div>
+<div class="container-fluid">
+    <h1 class="my-4">Search for</h1>
+    <form class="mb-5" action="{{ url_for('user_search', user_id=user.user_id) }}" method="post">
+        <div class="form-floating mb-3">
+            <select class="form-select" id="filter" name="filter">
+                <option value="category_name">Category Name</option>
+                <option value="item_name">Item Name</option>
+                <option value="item_price">Item Price</option>
+                <option value="manufacture_date">Manufacture Date</option>
+            </select>
+            <label for="filter" class="form-label">Select Mode</label>
+        </div>    
+        <div class="form-floating input-group mb-3">
+            <input class="form-control" id="search" name="search" type="text" value="" required/>
+            <label for="search" class="form-label">Enter Name in Text/ Price in Number / Date in dd-mm-yyyy  format</label>
+            <button class="btn btn-outline-dark" type="submit">Search</button>    
+        </div>    
+    </form>
+    {% if method %}
+        {% if method == 'category' %}
+            {% if final_products|length %}
+                {% for category in final_products %}
+                    <div class="row mb-4">
+                        <div class="col-md-12">
+                            <div class="card rounded">
+                                <div class="card-body text-center">
+                                    <h3 class="card-title">{{ category.cname }}</h3>
+                                    {% if d[category.cid] %}
+                                        {% for item in d[category.cid] %}
+                                            <div class="col-md-4 mb-3">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div class="card-text">
+                                                                <h5 class="card-title">{{ item.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.unit_price }}{{ item.unit }}</h5>
+                                                            </div>
+                                                            <div>
+                                                                {% if item.qty_left > 0 %}
+                                                                    <a href="{{ url_for('user_buyitem', user_id=user.user_id, item_id=item.item_id) }}" class="btn btn-primary">Buy</a>
+                                                                {% else %}
+                                                                    <a href="#" class="btn btn-primary btn-out-of-stock" disabled>Out of Stock</a>
+                                                                {% endif %}
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    {% else %}
+                                        <h3>No items in this Category available</h3>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>        
+                {% endfor %} 
+            {% else %}
+                <h3>No Categories found</h3>
+            {% endif %}
+        
+        {% elif method == 'item' %}
+            {% if final_products|length %}
+                {% for item in final_products %}
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="card-text">
+                                        <h5 class="card-title">{{ item.name }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{ item.unit_price }}{{ item.unit }} &nbsp;&nbsp{{item.mdate}}</h5>
+                                    </div>
+                                    <div>
+                                        {% if item.qty_left > 0 %}
+                                            <a href="{{ url_for('user_buyitem', user_id=user.user_id, item_id=item.item_id) }}" class="btn btn-primary">Buy</a>
+                                        {% else %}
+                                            <a href="#" class="btn btn-primary btn-out-of-stock" disabled>Out of Stock</a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <h3>No Items found</h3>
+                    
+            {% endif %}
+                
+        {% endif %}
+    {% endif %}
+    
+</div>
+{% endblock %}

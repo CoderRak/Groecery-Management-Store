@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% block body %}
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div>
+        <h1>Editing Item: {{ item.name }}</h1>
+        <div class="card text-center">
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('edit_item', item_id=item.item_id) }}">
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="name" name="name" value="{{ item.name }}" readonly>
+                        <label for="name">Item Name</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="unit" name="unit">
+                            <option value="Rs/kg">Rs/kg</option>
+                            <option value="Rs/L">Rs/L</option>
+                            <option value="Rs/Dozen">Rs/Dozen</option>
+                            <option value="Rs/gram">Rs/gram</option>
+                        </select>
+                        <label for="unit">Unit</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="unit_price" name="unit_price" value="{{ item.unit_price }}">
+                        <label for="unit_price">Unit Price</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="qty" name="qty" value="{{ item.qty }}">
+                        <label for="qty">Quantity</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="qty_left" name="qty_left" value="{{ item.qty_left }}" readonly>
+                        <label for="qty_left">Quantity Left</label>
+                    </div>
+                
+                    <div class="form-floating mb-3">
+                        <input type="date" class="form-control" id="mdate" name="mdate" value="{{ item.mdate }}">
+                        <label for="mdate">Manufacturing Date</label>
+                    </div>
+                
+                    <button type="submit" class="btn btn-primary btn-rounded">Save</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
